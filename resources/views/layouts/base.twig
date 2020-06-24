@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="it">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>
+			{% if wp_title %}
+				{{ wp_title }}
+				-
+				{{ site.name }}
+			{% else %}
+				{{ site.name }}
+			{% endif %}
+		</title>
+		<meta name="MobileOptimized" content="320">
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		{{ function('wp_head') }}
+    <style>
+      x-cloak { display: none; }
+    </style>
+	</head>
+	<body>
+		{% include 'layouts/_header.twig' %}
+		<main class="py-10 container mx-auto">
+      {% block content %}
+        {{ messages.base.no_content }}
+      {% endblock %}
+		</main>
+		{% include 'layouts/_footer.twig' %}
+    {{function('wp_footer') }}
+	</body>
+</html>

@@ -1,36 +1,32 @@
-<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+{% macro make(pageInfo) %}
+  <nav class="flex space-x-2 pt-6" role="navigation">
+    {% if pageInfo.prevUrl %}
+      <a href="{{ pageInfo.prevUrl }}" class="button flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-blue-900 h-4 w-4" viewBox="0 0 13 13">
+          <path
+            d="M3.11114 6.96401L8.95718 12.8081C9.2137 13.064 9.62931 13.064 9.88648 12.8081C10.143 12.5522 10.143 12.1366 9.88648 11.8808L5.21159 7.20755C4.82091 6.81701 4.82089 6.18368 5.21154 5.79312L9.88583 1.11996C10.1423 0.86409 10.1423 0.448486 9.88583 0.191965C9.62931 -0.0639071 9.21306 -0.0639071 8.95654 0.191965L3.1105 6.03601C2.85792 6.28924 2.85792 6.71137 3.11114 6.96401Z"/>
+        </svg>
+      </a>
+    {% endif %}
 
-  {# PREVIOUS BUTTON #}
-  {% if pagination.prev %}
-    <a href="{{ pagination.prev.link }}"
-       class="pagination-previous prev {{ pagination.prev.link|length ? '' : 'invisible' }}">&laquo;</a>
-  {% else %}
-    <button class="pagination-previous prev" disabled>&laquo;</button>
-  {% endif %}
-
-  {# NEXT BUTTON #}
-  {% if pagination.next %}
-    <a href="{{ pagination.next.link }}"
-       class="pagination-next next {{ pagination.next.link|length ? '' : 'invisible' }}">&raquo;</a>
-  {% else %}
-    <button class="pagination-next next" disabled>&raquo;</button>
-  {% endif %}
-
-  {# PAGINATION LIST #}
-  <ul class="pagination-list">
-    {% for page in pagination.pages %}
-      {% if page.link %}
-        <li>
-          <a href="{{ page.link }}" class="{{ page.class }} pagination-link"
-             aria-label="Goto page {{ page.title }}">{{ page.title }}</a>
-        </li>
-      {% else %}
-        {% if page.class == 'dots' %}
-          <li><span class="pagination-ellipsis">&hellip;</span></li>
-        {% else %}
-          <span class="pagination-link is-current {{ page.class }}">{{ page.title }}</span>
-        {% endif %}
-      {% endif %}
+    {% for page, url in pageInfo.getPrevUrls(5) %}
+      <a class="button" href="{{ url }}">{{ page }}</a>
     {% endfor %}
-  </ul>
-</nav>
+
+    <a href="#" class="button">{{ pageInfo.currentPage }}</a>
+
+    {% for page, url in pageInfo.getNextUrls(5) %}
+      <a class="button" href="{{ url }}">{{ page }}</a>
+    {% endfor %}
+
+    {% if pageInfo.nextUrl %}
+      <a href="{{ pageInfo.nextUrl }}" class="button flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg)"
+             class="fill-current text-blue-900 h-4 w-4" viewBox="0 0 13 13">
+          <path
+            d="M3.11114 6.96401L8.95718 12.8081C9.2137 13.064 9.62931 13.064 9.88648 12.8081C10.143 12.5522 10.143 12.1366 9.88648 11.8808L5.21159 7.20755C4.82091 6.81701 4.82089 6.18368 5.21154 5.79312L9.88583 1.11996C10.1423 0.86409 10.1423 0.448486 9.88583 0.191965C9.62931 -0.0639071 9.21306 -0.0639071 8.95654 0.191965L3.1105 6.03601C2.85792 6.28924 2.85792 6.71137 3.11114 6.96401Z"/>
+        </svg>
+      </a>
+    {% endif %}
+  </nav>
+{% endmacro %}

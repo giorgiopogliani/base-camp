@@ -1,14 +1,11 @@
-{% extends "base.twig" %}
+{% extends "layouts/base.twig" %}
 
 {% block content %}
   {% for post in posts %}
-    {% include 'components/article.twig' %}
-    <hr />
+    {% include 'posts/item.twig' %}
   {% endfor %}
-
 
   {% if posts.pagination.pages %}
     {% include 'components/pagination.twig' %}
   {% endif %}
-
 {% endblock %}

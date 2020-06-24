@@ -1,0 +1,47 @@
+{% macro title(text) %}
+	<div>
+		<h2 class="font-semibold break-words text-3xl leading-9 font-semibold uppercase">{{text}}</h2>
+	</div>
+{% endmacro %}
+
+{% macro textShadow(text) %}
+	<h2 class="select-none absolute bottom-0 left-0 text-6xl leading-9 font-semibold uppercase whitespace-no-wrap" style="opacity: 0.09;top: -50%;left: 0">
+		{{text}}
+	</h2>
+{% endmacro %}
+
+{% macro price(prezzo) %}
+	<p class="font-bold">
+    {{ prezzo }}
+  </p>
+{% endmacro %}
+
+{% macro colorsplit(text,class) %}
+	{% set parts = text|split(' ',2) %}
+	<span class="text-yellow-500 {{class}}">
+		{{parts[0]}}
+	</span>
+	{{parts[1]??''}}
+{% endmacro %}
+
+{% macro button(text) %}
+	<button class="button">
+		{{ text }}
+	</button>
+{% endmacro %}
+
+{% macro cta(link, class = '') %}
+	<a {{ link.getLinkAttributes() }} class="button {{ class }}">
+		{{ link.getText() }}
+	</a>
+{% endmacro %}
+
+{% macro ctalink(link, class = '') %}
+	<a {{ link.getLinkAttributes() }} class="{{ class }}">
+		{{ link.getText() }}
+	</a>
+{% endmacro %}
+
+{% macro image(image, config) %}
+	{{ craft.picture.element(image, 'banner', config ?? {alt: image.title, class:'w-full h-full'})}}
+{% endmacro %}

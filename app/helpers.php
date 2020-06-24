@@ -11,10 +11,10 @@
  */
 function assets($key)
 {
-    $manifest_string = file_get_contents(get_template_directory() . '/static/manifest.json');
+    $manifest_string = file_get_contents(get_template_directory() . '/public/mix-manifest.json');
     $manifest_array  = json_decode($manifest_string, true);
 
-    return get_stylesheet_directory_uri() . '/static/' . $manifest_array[$key];
+    return get_stylesheet_directory_uri() . $manifest_array[$key];
 }
 
 /**
@@ -28,7 +28,7 @@ function assets($key)
  */
 function images_path($file = null)
 {
-    return get_stylesheet_directory_uri() . '/resources/assets/images/' . $file;
+    return get_stylesheet_directory_uri() . '/resources/images/' . $file;
 }
 
 /**
@@ -98,7 +98,7 @@ function bc_random_string($length)
  */
 function has_assets($key)
 {
-    $manifest_string = file_get_contents(get_template_directory() . '/static/manifest.json');
+    $manifest_string = file_get_contents(get_template_directory() . '/public/mix-manifest.json');
     $manifest_array  = json_decode($manifest_string, true);
 
     return @file_get_contents(get_template_directory() . '/static/' . $manifest_array[$key]);
